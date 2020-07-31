@@ -11,9 +11,9 @@ export const registerSubmit = () => ({
   type: actionType.REGISTER_SUBMIT
 });
 
-export const registerUserSuccess = (user) => ({
+export const registerUserSuccess = (login) => ({
   type: actionType.REGISTER_SUCCESS,
-  user:user
+  login:login
 });
 
 export const registerUserFailure = () => ({

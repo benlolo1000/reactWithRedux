@@ -1,1 +1,1 @@
-  export const potentialUser = state=> state.potentialUser;
+  export const register = state=> state.register;

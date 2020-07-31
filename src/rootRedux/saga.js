@@ -1,11 +1,14 @@
 import {all} from 'redux-saga/effects';
-import user from '../login/saga.js';
-import potentialUser from '../Register/saga.js';
+import login from '../login/saga.js';
+import home from '../userHome/saga.js';
+import register from '../Register/saga.js';
+
 
 function* rootSaga() {
   yield all([
-    user(), 
-    potentialUser()
+    login(), 
+    home(),
+    register()
   ]);
 }
 

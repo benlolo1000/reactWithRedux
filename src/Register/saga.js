@@ -3,7 +3,7 @@ import * as actions from './actions';
 import * as actionType from './actionTypes';
 
 export function* registering() {
-  const stateUser = yield select(state => state.potentialUser);
+  const stateUser = yield select(state => state.register);
   const response = yield fetch("https://node-training.t1cg.codes/node/api/register", {
     method: "POST",
     body: JSON.stringify({

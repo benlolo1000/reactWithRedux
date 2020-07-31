@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case actionType.REGISTER_SUCCESS:
       return {
         ...state,
-        loggedIn: true, DOB: action.user.DOB, address: action.user.address
+        loggedIn: true, DOB: action.login.DOB, address: action.login.address
       };
     case actionType.REGISTER_FAILURE:
       return {

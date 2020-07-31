@@ -8,7 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 
 const Register = props =>{
-    const potentialUser = useSelector(select.potentialUser);
+    const register = useSelector(select.register);
     const dispatch = useDispatch();
     const registerInputChange = (e) => {
             e.preventDefault();
@@ -19,7 +19,7 @@ const Register = props =>{
         dispatch({type: actionType.REGISTER_SUBMIT})
     }
 
-    if (potentialUser.loggedIn) {
+    if (register.loggedIn) {
         props.changeView('user');
         return (null);
       }
@@ -29,11 +29,11 @@ const Register = props =>{
             <h1>Register</h1>
             <form>
                 <div className="inputContainer">
-                    <input value={potentialUser.username} onChange={registerInputChange} type="text" id="username" required/>
+                    <input value={register.username} onChange={registerInputChange} type="text" id="username" required/>
                     <label>Username</label>
                 </div>
                 <div className="inputContainer">
-                    <input value={potentialUser.password} onChange={registerInputChange} type="password" id="password" required />
+                    <input value={register.password} onChange={registerInputChange} type="password" id="password" required />
                     <label>Password</label>
                 </div>
                 <input onClick={handleSubmit} type="submit" value="Create Account"/>
@@ -41,7 +41,7 @@ const Register = props =>{
                 <button onClick={()=> props.changeView('login')}>Return to Login</button>
             </form>
         </div>
-        {potentialUser.loginError &&
+        {register.loginError &&
       <p style={{color:'indianred', textAlign: 'center'}}>{sessionStorage.getItem("errorMessage")}</p>
     }
         </>

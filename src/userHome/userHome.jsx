@@ -1,14 +1,14 @@
-import * as actionTypes from '../login/actionTypes'
-import * as actions from '../login/actions'
+import * as actionTypes from './actionTypes'
+import * as actions from './actions'
 import React from 'react';
+import * as select from './selector';
 import {useSelector, useDispatch} from 'react-redux';
-import * as select from '../login/selector';
 
 const UserHome = props =>   {
 
-
-  const user = useSelector(select.user); 
+  const home = useSelector(select.home); 
   const dispatch = useDispatch();
+
   const userInputChange = (e) => {
     e.preventDefault();
     return dispatch(actions.userInputChange(e));
@@ -19,38 +19,40 @@ const UserHome = props =>   {
   }
   const handleUserSubmit = (e) =>{
     e.preventDefault(); 
-    if(!user.city&&!user.state&&!user.specialty&&!user.drug){
+    if(!home.city&&!home.state&&!home.specialty&&!home.drug){
       window.alert("Please fill in at least one search box")
     }else{
     dispatch({type: actionTypes.USER_SUBMIT})
     }
   }
 
-  if (!user.loggedIn) {
-    props.changeView('login');
-    return (null);
-  } 
+  //AUTH CODE
+  // if (!home.loggedIn) {
+  //   props.changeView('login');
+  //   return (null);
+  // } 
 
-  else {
+  // else {
+
    return (
     <div>
       <div className="userHome">
         <h1>Welcome</h1>
         <form onSubmit={(e) => {handleUserSubmit(e)}}>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="city" value={user.city} />
+            <input onChange={userInputChange} type="text" id="city" value={home.city} />
             <label>City</label>
           </div>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="state" value={user.state} />
+            <input onChange={userInputChange} type="text" id="state" value={home.state} />
             <label>State</label>
           </div>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="specialty" value={user.specialty} />
+            <input onChange={userInputChange} type="text" id="specialty" value={home.specialty} />
             <label>Specialty</label>
           </div>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="drug" value={user.drug} />
+            <input onChange={userInputChange} type="text" id="drug" value={home.drug} />
             <label>Drug</label>
           </div>
           <input type="submit" value="Search" />
@@ -62,21 +64,21 @@ const UserHome = props =>   {
           </button>
           <br/>
           <br/>
-          {user.searchClick?(<button onClick={()=>dispatch({type: actionTypes.SEARCH_RESET})}>Reset</button>):("")}
+          {home.searchClick?(<button onClick={()=>dispatch({type: actionTypes.SEARCH_RESET})}>Reset</button>):("")}
         </form>
         </div>
-        {user.searchError &&
+        {home.searchError &&
         <p style={{color:'indianred', textAlign: 'center'}}>Invalid Search</p>
         }
         <div>
           {
-            user.searchClick ? 
+            home.searchClick ? 
               (
-                user.searchSelect ? 
+                home.searchSelect ? 
                   (
                     <div>
                     {
-                      user.selectedResults.map((value, index) => {
+                      home.selectedResults.map((value, index) => {
                         return (
                           <div  className="userHome" key={index} onClick={() => dispatch(actions.searchDeselect())}>
                             <ul>
@@ -115,7 +117,7 @@ const UserHome = props =>   {
               :
               (
                 <div>
-                {user.results.map((value, index) => { 
+                {home.results.map((value, index) => { 
                   return (
                     <div  className="userHome" key={index} onClick={() => dispatch(actions.searchSelect(value.autoID))}>
                       <ul>
@@ -143,6 +145,5 @@ const UserHome = props =>   {
     </div>
    );
   }
-};
 
 export default UserHome;

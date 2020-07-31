@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
-import user from '../login/reducer.js';
-import potentialUser from '../Register/reducer.js';
+import login from '../login/reducer.js';
+import register from '../Register/reducer.js';
+import home from '../userHome/reducer.js'
 
-const rootReducer = combineReducers({user, potentialUser});
+const rootReducer = combineReducers({login, home, register});
 
 export default rootReducer;
