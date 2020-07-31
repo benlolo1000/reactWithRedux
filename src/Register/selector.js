@@ -1,0 +1,1 @@
+  export const potentialUser = state=> state.potentialUser;
