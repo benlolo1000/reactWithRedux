@@ -8,7 +8,7 @@ const UserHome = props =>   {
 
   const home = useSelector(select.home); 
   const dispatch = useDispatch();
-
+  
   const userInputChange = (e) => {
     e.preventDefault();
     return dispatch(actions.userInputChange(e));
@@ -22,10 +22,10 @@ const UserHome = props =>   {
     if(!home.ticker&&!home.startDate&&!home.endDate){
       window.alert("Please fill in at least one search box")
     }else{
-    dispatch({type: actionTypes.USER_SUBMIT})
+      dispatch({type: actionTypes.USER_SUBMIT})
     }
   }
-
+  
   //AUTH CODE
   // if (!home.loggedIn) {
   //   props.changeView('login');
@@ -41,23 +41,15 @@ const UserHome = props =>   {
         <form onSubmit={(e) => {handleUserSubmit(e)}}>
           <div className="inputContainer">
             <input onChange={userInputChange} type="text" id="ticker" value={home.ticker} />
-            <label>Ticker</label>
-          </div>
-          <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="startDate" value={home.startDate} />
-            <label>Start Date (year-month-day)</label>
-          </div>
-          <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="endDate" value={home.endDate} />
-            <label>End Date (year-month-day)</label>
+            <label>Search By Ticker</label>
           </div>
           <input type="submit" value="Search" />
-          <br/>
+          {/* <br/>
           <br/>
           <button 
             onClick={handleLogoutClick}>
             Log Out
-          </button>
+          </button> */}
           <br/>
           <br/>
           {home.searchClick?(<button onClick={()=>dispatch({type: actionTypes.SEARCH_RESET})}>Reset</button>):("")}

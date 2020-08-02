@@ -1,20 +1,30 @@
 import {put, takeEvery, all, call, select, delay} from 'redux-saga/effects';
 import * as actions from './actions';
 import * as actionType from './actionTypes';
+import moment from 'moment';
 
 export function* searching() {
 
-    // creates url using apiKey and params
+    //retrieve params from state
     const query = yield select(state => state.home);
+  
+    //iniitialize finnhub/apiKey
     const finnhub = require('finnhub');
     const apiKey = finnhub.ApiClient.instance.authentications['api_key'];
     apiKey.apiKey = 'bse52uvrh5rea8raai20';
+
+    //get current date
+    const dateObj = new Date()
+    const currentDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+
+    console.log()
+
     const url = 'https://finnhub.io/api/v1/company-news?symbol=' + query.ticker
-    + '&from=' + query.startDate 
-    + '&to='+ query.endDate 
+    + '&from=' + moment().subtract(7,'days').format('YYYY-MM-DD')
+    + '&to='+ moment().format('YYYY-MM-DD')
     +'&token='+ apiKey.apiKey
 
-    // fetches data using url and returns body of response
+    // fetch data using url and returns body of response
     const data = yield fetch(url, { method: "GET" }).then( body => {
       return body.json() 
       })
