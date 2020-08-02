@@ -3,6 +3,7 @@ import * as actions from './actions'
 import React from 'react';
 import * as select from './selector';
 import {useSelector, useDispatch} from 'react-redux';
+import News from './News'
 
 const UserHome = props =>   {
 
@@ -12,10 +13,6 @@ const UserHome = props =>   {
   const userInputChange = (e) => {
     e.preventDefault();
     return dispatch(actions.userInputChange(e));
-  }
-  const handleLogoutClick = () => {
-    dispatch({type: actionTypes.LOGIN_RESET})
-    sessionStorage.setItem("apiToken", null)    
   }
   const handleUserSubmit = (e) =>{
     e.preventDefault(); 
@@ -27,6 +24,11 @@ const UserHome = props =>   {
   }
   
   //AUTH CODE
+    // const handleLogoutClick = () => {
+    //   dispatch({type: actionTypes.LOGIN_RESET})
+    //   sessionStorage.setItem("apiToken", null)    
+    // }
+
   // if (!home.loggedIn) {
   //   props.changeView('login');
   //   return (null);
@@ -44,12 +46,6 @@ const UserHome = props =>   {
             <label>Search By Ticker</label>
           </div>
           <input type="submit" value="Search" />
-          {/* <br/>
-          <br/>
-          <button 
-            onClick={handleLogoutClick}>
-            Log Out
-          </button> */}
           <br/>
           <br/>
           {home.searchClick?(<button onClick={()=>dispatch({type: actionTypes.SEARCH_RESET})}>Reset</button>):("")}
@@ -57,21 +53,16 @@ const UserHome = props =>   {
         </div>
         {home.searchError &&
         <p style={{color:'indianred', textAlign: 'center'}}>Invalid Search</p>
-        }
-        <div>
-          {
-            home.results.map((value, index) => { 
-                    return (
-                      <div  className="userHome" key={index} onClick={() => dispatch(actions.searchSelect(value.autoID))}>
-                        <ul>
-                        <li>Headline: {value.headline} </li>
-                        </ul>
-                      </div>
-                    )
-            })
-          }
-        </div>
+      }
+      <News />
 
+      {/*auth*/}
+      {/* <br/>
+      <br/>
+      <button 
+        onClick={handleLogoutClick}>
+        Log Out
+      </button> */}
 
 
 
