@@ -2,17 +2,13 @@ import * as actionType from './actionTypes';
 
 const initialState = {
   //input search logic
-  id: '',
-  firstName: '',
-  lastName: '',
-  city: '',
-  state: '',
-  specialty: '',
-  drug: '',
-  searchError: false, 
-  searchClick:false,
+  ticker: 'AAPL',
+  startDate: '2020-07-10',
+  endDate: '2020-07-20',
   
   //search results logic
+  searchError: false, 
+  searchClick:false,
   results:[],
   selectedResults:[],
   searchSelect:false,
@@ -46,13 +42,9 @@ export default (state = initialState, action) => {
       case actionType.SEARCH_RESET:
         return {
           ...state,
-          id: '',
-          firstName: '',
-          lastName: '',
-          city: '',
-          state: '',
-          specialty: '',
-          drug: '',
+          ticker: '',
+          startDate: '',
+          endDate: '',
           searchError: false, 
           searchClick:false,
           

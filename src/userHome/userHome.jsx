@@ -19,7 +19,7 @@ const UserHome = props =>   {
   }
   const handleUserSubmit = (e) =>{
     e.preventDefault(); 
-    if(!home.city&&!home.state&&!home.specialty&&!home.drug){
+    if(!home.ticker&&!home.startDate&&!home.endDate){
       window.alert("Please fill in at least one search box")
     }else{
     dispatch({type: actionTypes.USER_SUBMIT})
@@ -40,20 +40,16 @@ const UserHome = props =>   {
         <h1>Welcome</h1>
         <form onSubmit={(e) => {handleUserSubmit(e)}}>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="city" value={home.city} />
-            <label>City</label>
+            <input onChange={userInputChange} type="text" id="ticker" value={home.ticker} />
+            <label>Ticker</label>
           </div>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="state" value={home.state} />
-            <label>State</label>
+            <input onChange={userInputChange} type="text" id="startDate" value={home.startDate} />
+            <label>Start Date (year-month-day)</label>
           </div>
           <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="specialty" value={home.specialty} />
-            <label>Specialty</label>
-          </div>
-          <div className="inputContainer">
-            <input onChange={userInputChange} type="text" id="drug" value={home.drug} />
-            <label>Drug</label>
+            <input onChange={userInputChange} type="text" id="endDate" value={home.endDate} />
+            <label>End Date (year-month-day)</label>
           </div>
           <input type="submit" value="Search" />
           <br/>
@@ -72,6 +68,24 @@ const UserHome = props =>   {
         }
         <div>
           {
+            home.results.map((value, index) => { 
+                    return (
+                      <div  className="userHome" key={index} onClick={() => dispatch(actions.searchSelect(value.autoID))}>
+                        <ul>
+                        <li>Headline: {value.headline} </li>
+                        </ul>
+                      </div>
+                    )
+            })
+          }
+        </div>
+
+
+
+
+
+        {/* <div>
+          {
             home.searchClick ? 
               (
                 home.searchSelect ? 
@@ -84,10 +98,10 @@ const UserHome = props =>   {
                             <ul>
                             <li>First Name: {value.firstName} </li>
                             <li>Last Name: {value.lastOrgName} </li>
-                            <li>City: {value.city} </li>
+                            <li>Ticker: {value.ticker} </li>
                             <li>State: {value.state} </li>
-                            <li>specialty: {value.specialty} </li>
-                            <li>Drug Name: {value.drugName} </li>
+                            <li>Start Date: {value.startDate} </li>
+                            <li>End Date: {value.endDate} </li>
                             <li>Active: {value.active} </li>
                             <li>beneCount: {value.genericName} </li>
                             <li>Bene Count: {value.beneCount} </li>
@@ -121,13 +135,9 @@ const UserHome = props =>   {
                   return (
                     <div  className="userHome" key={index} onClick={() => dispatch(actions.searchSelect(value.autoID))}>
                       <ul>
-                      <li>First Name: {value.firstName} </li>
-                      <li>Last Name: {value.lastOrgName} </li>
-                      <li>City: {value.city} </li>
-                      <li>State: {value.state} </li>
-                      <li>specialty: {value.specialty} </li>
-                      <li>Drug Name: {value.drugName} </li>
-                      <li>Generic Name: {value.genericName} </li>
+                      <li>Ticker: {value.ticker} </li>
+                      <li>Start Date: {value.startDate} </li>
+                      <li>endDate: {value.endDate} </li>
                       </ul>
                     </div>
                     )})}
@@ -141,8 +151,8 @@ const UserHome = props =>   {
               </div>
             ) 
           }
-      </div>
-    </div>
+      </div>*/}
+    </div> 
    );
   }
 

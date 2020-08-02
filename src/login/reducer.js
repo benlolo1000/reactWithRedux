@@ -38,13 +38,7 @@ export default (state = initialState, action) => {
         password: '',
         loggedIn: false,
         loginError: false,
-        token: null,
-        city: '',
-        state: '',
-        specialty: '',
-        drug: '',
-        searchSelect:false,
-        results:[],
+        token: null
       }
     case actionType.HAS_TOKEN:
     return {
