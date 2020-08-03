@@ -4,7 +4,6 @@ import * as actionType from './actionTypes';
 import moment from 'moment';
 
 export function* searching() {
-
     //retrieve params from state
     const query = yield select(state => state.home);
   
@@ -13,55 +12,45 @@ export function* searching() {
     const apiKey = finnhub.ApiClient.instance.authentications['api_key'];
     apiKey.apiKey = 'bse52uvrh5rea8raai20';
 
-    //get current date
-    const dateObj = new Date()
-    const currentDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-
-    console.log()
-
-    const url = 'https://finnhub.io/api/v1/company-news?symbol=' + query.ticker
+    //construct news url
+    const newsUrl = 'https://finnhub.io/api/v1/company-news?symbol=' + query.ticker
     + '&from=' + moment().subtract(7,'days').format('YYYY-MM-DD')
     + '&to='+ moment().format('YYYY-MM-DD')
     +'&token='+ apiKey.apiKey
 
-    // fetch data using url and returns body of response
-    const data = yield fetch(url, { method: "GET" }).then( body => {
+    // fetch news using newsUrl and returns body of response
+    const news = yield fetch(newsUrl, { method: "GET" }).then( body => {
       return body.json() 
       })
-      console.log(data)
 
-        if (data !== null){
-          console.log("data being sent to searchSuccess:", data)
-          yield put(actions.searchSuccess(data));
+
+        if (news !== null){
+          yield put(actions.returnNews(news));
         } else {
           yield put(actions.userSearchFailure());
           yield delay(1500);
           yield put(actions.searchReset());
         }
-
-    // const response = yield fetch(("https://node-training.t1cg.codes/node/api/records?" 
-    //         + (query.city? ("city=" + query.city):(""))
-    //         + (query.state? ("&state=" + query.state):("")) 
-    //         + (query.specialty? ("&specialty=" + query.specialty):("")) 
-    //         + (query.drug? ("&drug=" + query.drug):(""))
-    //       ), {
-    //   method: "GET",
-    //   headers: {
-    //     "Authorization": query.token,
-    //     "Content-Type": "application/json"
-    //   },
-    //   credentials: "include"
-    // }).then(function(response) {
-    //   return response.json() 
-    // })
     
-    // if (response.status===200){
-    //   yield put(actions.searchSuccess(response.response));
-    // } else {
-    //   yield put(actions.userSearchFailure());
-    //   yield delay(1500);
-    //   yield put(actions.searchReset());
-    // }
+    //construct financials url
+    const financialsUrl = 'https://finnhub.io/api/v1/stock/metric?symbol=' + query.ticker
+    + '&metric=all'
+    + '&token='+ apiKey.apiKey
+
+    // fetch financials using financialsUrl and returns body of response
+    const financials = yield fetch(financialsUrl, { method: "GET" }).then( body => {
+      return body.json() 
+      })
+
+      console.log(typeof financials.metric)
+
+        if (financials !== null){
+          yield put(actions.returnFinancials(financials.metric));
+        } else {
+          yield put(actions.userSearchFailure());
+          yield delay(1500);
+          yield put(actions.searchReset());
+        }
 
   }
   

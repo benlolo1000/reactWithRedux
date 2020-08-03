@@ -3,6 +3,7 @@ body {
   min-height: 100vh;
 }
 
+/* START LOGIN */
 .login {
   margin: auto;
   margin-top: 10em;
@@ -58,8 +59,10 @@ body {
 .login button:hover {
   background: crimson;
 }
+/* END LOGIN */
 
 
+/* START REGISTER */
 .register {
   margin: auto;
   margin-top: 10em;
@@ -115,8 +118,10 @@ body {
 .register button:hover {
   background: crimson;
 }
+/* END REGISTER */
 
 
+/* START USERHOME */
 .userHome {
   margin: auto;
   margin-top: 1em;
@@ -171,3 +176,16 @@ body {
 .userHome button:hover {
   background: crimson;
 }
+/* END USERHOME */
+
+/* START NEWS */
+#newsHeader {
+  margin: auto;
+  margin-top: 1em;
+  width: 500px;
+  color: beige;
+  text-align: center;
+  padding: 20px;
+}
+/* END NEWS */
+

@@ -3,6 +3,7 @@ import * as actions from './actions'
 import React from 'react';
 import * as select from './selector';
 import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment'
 
 const News = props =>   {
 
@@ -11,17 +12,18 @@ const News = props =>   {
 
     return(
         <div>
-            {home.results.map((value, index) => { 
+            <h2 id="newsHeader">Recent News</h2>
+            {home.news.map((value, index) => { 
                     return (
                         <div  className="userHome" key={index} onClick={() => dispatch(actions.searchSelect(value.autoID))}>
-                        <ul>
-                        <li>Headline: {value.headline} </li>
-                        </ul>
+                        <h3>{value.headline} </h3>
+                        <br/>
+                        <img src={value.image} width="300px"></img>
+                        <p>{moment(value.datetime*1000).format("DD MMM YYYY")}</p>
                         </div>
                     )
             })}
         </div>
-
     );
 }
 

@@ -10,9 +10,14 @@ export const userInputChange = e => ({
     type: actionType.USER_SUBMIT
   });
   
-  export const searchSuccess = (response) => ({
-    type: actionType.SEARCH_SUCCESS,
-    response:response
+  export const returnNews = (news) => ({
+    type: actionType.RETURN_NEWS,
+    news:news
+  });
+
+  export const returnFinancials = (financials) => ({
+    type: actionType.RETURN_FINANCIALS,
+    financials:financials
   });
   
   export const userSearchFailure = () => ({

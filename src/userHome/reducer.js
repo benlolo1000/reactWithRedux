@@ -9,7 +9,8 @@ const initialState = {
   //search results logic
   searchError: false, 
   searchClick:false,
-  results:[],
+  news:[],
+  financialsResults:{},
   selectedResults:[],
   searchSelect:false,
 };
@@ -27,11 +28,18 @@ export default (state = initialState, action) => {
           ...state,
           searchClick:true,
         }
-      case actionType.SEARCH_SUCCESS:
+      case actionType.RETURN_NEWS:
         return {
           ...state,
           searchSelect:false,
-          results:action.response,
+          news:action.news,
+          selectedResults:[]
+        };
+      case actionType.RETURN_FINANCIALS:
+        return {
+          ...state,
+          searchSelect:false,
+          financialsResults:action.financials,
           selectedResults:[]
         };
       case actionType.SEARCH_FAILURE:
@@ -48,14 +56,14 @@ export default (state = initialState, action) => {
           searchError: false, 
           searchClick:false,
           
-          results:[],
+          news:[],
+          financialsResults:{},
           selectedResults:[],
           searchSelect:false,
         }
       case actionType.SEARCH_SELECT:
         return {
           ...state,
-          id: action.id,
           searchSelect:!state.searchSelect,
          
         };
